@@ -105,10 +105,12 @@ public class AddCallUI {
 			callDao.makePersistent(call);
 			callDao.getSession().getTransaction().commit();
 		} catch (ConstraintViolationException e) {
+            //todo crete message
 			log.error("Can't persist call " + call, e);
 			callDao.getSession().getTransaction().rollback();
 			throw e;
 		} catch (HibernateException e) {
+            //todo crete message
 			log.error("Can't persist call " + call, e);
 			callDao.getSession().getTransaction().rollback();
 			throw e;
@@ -185,4 +187,8 @@ public class AddCallUI {
 	public JComponent $$$getRootComponent$$$() {
 		return formPanel;
 	}
+
+    public JComponent getRootPane() {
+        return formPanel;
+    }
 }
