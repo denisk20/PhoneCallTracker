@@ -27,7 +27,7 @@ import java.util.Date;
 public class Call {
 	private long id;
 
-	@NotNull
+	@NotNull(message = "Телефон пустой!")
 	@Size(min = 6, max = 10, message = "Телефон - от 6 до 9 цифр")
 	private String phoneNumber;
 	private String description;
@@ -43,8 +43,7 @@ public class Call {
 		this.id = id;
 	}
 
-	//todo unit test this
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}

@@ -52,7 +52,7 @@
                       <text value="Диапазон"/>
                     </properties>
                   </component>
-                  <component id="bbf91" class="javax.swing.JFormattedTextField" binding="numberOfDaysField">
+                  <component id="bbf91" class="javax.swing.JFormattedTextField" binding="numberOfDaysField" custom-create="true">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="174" height="22"/>
@@ -112,7 +112,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="5e95b" class="javax.swing.JFormattedTextField" binding="phoneNumber">
+                  <component id="5e95b" class="javax.swing.JFormattedTextField" binding="phoneNumber" custom-create="true">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="183" height="22"/>

@@ -2,6 +2,7 @@ package com.nixsolutions.calltracer.ui.executors;
 
 import com.nixsolutions.calltracer.ui.data.CallVisitorsHolder;
 import com.nixsolutions.calltracer.ui.data.DateRange;
+import com.nixsolutions.calltracer.ui.data.DeletableCall;
 import com.nixsolutions.calltracer.ui.handlers.CallDaoHandler;
 import com.nixsolutions.calltracer.ui.visitors.QueryVisitor;
 import com.nixsolutions.calltracker.model.Call;
@@ -80,13 +81,34 @@ public class CallQueryExecutor {
 
 	public List<Call> queryCalls() {
 		//set criteria for all visitors
-		daoHandler.startTransaction();
-		daoHandler.newQuery();
+        List<Call> callList = null;
+        try {
+            daoHandler.startTransaction();
+            daoHandler.newQuery();
 
-		callVisitorsHolder.acceptHandler(daoHandler);
-		List<Call> callList = daoHandler.list();
+            callVisitorsHolder.acceptHandler(daoHandler);
+            callList = daoHandler.list();
 
-		daoHandler.commitTransaction();
-		return callList;
+            daoHandler.commitTransaction();
+        } catch (Exception e) {
+            daoHandler.rollbackTransaction();
+            e.printStackTrace();
+        }
+        return callList;
 	}
+
+    public void deleteCalls(List<DeletableCall> calls) {
+        try {
+            daoHandler.startTransaction();
+            for (DeletableCall c : calls) {
+                if (c.isDelete()) {
+                    daoHandler.deleteCall(c.getCall());
+                }
+            }
+            daoHandler.commitTransaction();
+        } catch (Exception e) {
+            daoHandler.rollbackTransaction();
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
 }

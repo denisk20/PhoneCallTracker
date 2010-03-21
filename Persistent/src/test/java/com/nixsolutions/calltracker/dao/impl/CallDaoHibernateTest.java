@@ -7,6 +7,7 @@ import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.validation.ConstraintViolation;
@@ -120,7 +121,9 @@ public class CallDaoHibernateTest {
 		dao.flush();
 	}
 
-	@Test(expected = ConstraintViolationException.class)
+
+    @Test(expected = ConstraintViolationException.class)
+    @Ignore("This test is not valid anymore")
 	public void testNonUniquePhone() {
 		List<Call> calls = dao.findAll();
 		assertNotNull(calls);

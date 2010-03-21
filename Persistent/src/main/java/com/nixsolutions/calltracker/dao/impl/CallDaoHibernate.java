@@ -59,6 +59,7 @@ public class CallDaoHibernate extends GenericDaoHibernate<Call, Long> implements
 		addDateRangeRestriction(criteria, start, end);
 	}
 
+    @SuppressWarnings("unchecked")
 	public List<Call> listQuery() {
 		return criteria.list();
 	}

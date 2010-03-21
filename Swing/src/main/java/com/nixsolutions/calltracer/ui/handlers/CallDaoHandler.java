@@ -1,5 +1,6 @@
 package com.nixsolutions.calltracer.ui.handlers;
 
+import com.nixsolutions.calltracer.ui.data.DeletableCall;
 import com.nixsolutions.calltracer.ui.visitors.Acceptable;
 import com.nixsolutions.calltracer.ui.visitors.QueryVisitor;
 import com.nixsolutions.calltracker.dao.CallDao;
@@ -57,4 +58,12 @@ public class CallDaoHandler implements Acceptable {
 	public void accept(QueryVisitor visitor) {
 		visitor.visit(this);
 	}
+
+    public void deleteCall(Call c) {
+        dao.makeTransient(c);
+    }
+
+    public void rollbackTransaction() {
+        dao.getSession().getTransaction().rollback();
+    }
 }
