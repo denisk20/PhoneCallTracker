@@ -6,6 +6,7 @@ import com.nixsolutions.calltracer.ui.forms.CallTracerUI;
 import com.nixsolutions.calltracer.ui.handlers.CallDaoHandler;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author denis_k
@@ -30,6 +31,12 @@ public class UI {
 		JFrame frame = new JFrame("CallTracerUI");
 		frame.setContentPane(callTracerUI.$$$getRootComponent$$$());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension screenSize = tk.getScreenSize();
+		int screenHeight = screenSize.height;
+		int screenWidth = screenSize.width;
+		frame.setSize(screenWidth / 2, screenHeight / 2);
+		frame.setLocation(screenWidth / 4, screenHeight / 4);
 		frame.pack();
 		frame.setVisible(true);
 

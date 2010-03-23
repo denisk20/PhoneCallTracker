@@ -75,9 +75,9 @@
 						<phase>process-test-resources</phase>
 						<configuration>
 							<tasks>
-								<property name="compile_classpath" refid="maven.compile.classpath"/>
+								<property name="test_classpath" refid="maven.test.classpath"/>
 								<java classname="com.nixsolutions.calltracker.util.DataGenerator"
-									  classpath="${compile_classpath}">
+									  classpath="${test_classpath}">
 								</java>
 							</tasks>
 						</configuration>

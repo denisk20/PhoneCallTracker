@@ -258,7 +258,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="&amp;Добавить"/>
+              <text value="Добавить"/>
             </properties>
           </component>
           <component id="c372a" class="javax.swing.JButton" binding="deleteSelected">
@@ -268,7 +268,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="&amp;Удалить"/>
+              <text value="Удалить"/>
             </properties>
           </component>
         </children>

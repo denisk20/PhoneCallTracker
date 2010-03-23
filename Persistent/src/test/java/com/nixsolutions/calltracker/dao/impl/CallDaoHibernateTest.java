@@ -6,6 +6,7 @@ import com.nixsolutions.calltracker.util.HibernateUtil;
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -28,7 +29,7 @@ import java.util.Set;
  *         Time: 19:36:17
  */
 public class CallDaoHibernateTest {
-	private CallDaoHibernate dao;
+	private static CallDaoHibernate dao;
 	@Before
 	public void setUp() {
 		dao = new CallDaoHibernate();
@@ -154,5 +155,12 @@ public class CallDaoHibernateTest {
 				   validator.validate(call);
 
 		assertEquals(1, constraintViolations.size());
+	}
+
+	@AfterClass
+	public static void closeConnection() {
+		if (dao.getSession().isOpen()) {
+			dao.getSession().close();
+		}
 	}
 }
