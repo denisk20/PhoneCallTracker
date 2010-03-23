@@ -51,13 +51,15 @@
 					<descriptors>
 						<descriptor>src/main/assembly/bin.xml</descriptor>
 					</descriptors>
+					<!--todo do not hardcode this-->
+					<finalName>CallTracker</finalName>
 				</configuration>
 				<executions>
-				  <execution>
-					<id>make-assembly</id> <!-- this is used for inheritance merges -->
-					<phase>package</phase> <!-- append to the packaging phase. -->
+					<execution>
+					  <id>make-assembly</id>
+					<phase>package</phase>
 					<goals>
-					  <goal>single</goal> <!-- goals == mojos -->
+					  <goal>single</goal>
 					</goals>
 				  </execution>
 				</executions>

@@ -17,15 +17,26 @@ import java.util.Date;
 public class JXDatePickerEditor extends AbstractCellEditor
 		implements TableCellEditor {
 	private JXDatePicker picker;
+	private Date lastDate;
 
 
 	public JXDatePickerEditor() {
+		lastDate = new Date();
 		picker = new JXDatePicker();
 		picker.getEditor().setEditable(false);
+		picker.getMonthView().setUpperBound(lastDate);
 		picker.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fireEditingStopped();
+				if (e.getActionCommand().equals("datePickerCommit")) {
+					Date date = picker.getDate();
+					if (date == null) {
+						picker.setDate(lastDate);
+						return;
+					}
+					lastDate = date;
+					fireEditingStopped();
+				}
 			}
 		});
 	}
