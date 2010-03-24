@@ -35,9 +35,9 @@ public class UI {
 		Dimension screenSize = tk.getScreenSize();
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
-		frame.setSize(screenWidth / 2, screenHeight / 2);
+		frame.setSize(screenWidth / 2, screenHeight / 4);
 		frame.setLocation(screenWidth / 4, screenHeight / 4);
-		frame.pack();
+		//frame.pack();
 		frame.setVisible(true);
 
 	}

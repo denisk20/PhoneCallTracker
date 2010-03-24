@@ -51,8 +51,7 @@
 					<descriptors>
 						<descriptor>src/main/assembly/bin.xml</descriptor>
 					</descriptors>
-					<!--todo do not hardcode this-->
-					<finalName>CallTracker</finalName>
+					<finalName>${project.parent.name}-${parent.version}</finalName>
 				</configuration>
 				<executions>
 					<execution>
