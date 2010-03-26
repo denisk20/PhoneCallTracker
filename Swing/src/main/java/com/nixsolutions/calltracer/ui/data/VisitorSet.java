@@ -24,7 +24,9 @@ public class VisitorSet {
 
 	public void acceptHandler(Acceptable handler) {
 		for (QueryVisitor visitor : visitors) {
-			handler.accept(visitor);
+			if (visitor.isActive()) {
+				handler.accept(visitor);
+			}
 		}
 	}
 }

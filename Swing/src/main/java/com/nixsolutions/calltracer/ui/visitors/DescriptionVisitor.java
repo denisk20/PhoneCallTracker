@@ -9,6 +9,7 @@ import com.nixsolutions.calltracer.ui.handlers.CallDaoHandler;
  */
 public class DescriptionVisitor implements QueryVisitor {
 	private String description;
+	private boolean active = true;
 
 	public String getDescription() {
 		return description;
@@ -22,5 +23,14 @@ public class DescriptionVisitor implements QueryVisitor {
 		if (description != null) {
 			callDaoHandler.addDescriptionCriteria(description);
 		}
+	}
+	@Override
+	public boolean isActive() {
+		return active;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 }

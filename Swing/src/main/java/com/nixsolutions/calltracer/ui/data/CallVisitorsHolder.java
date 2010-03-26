@@ -61,4 +61,27 @@ public class CallVisitorsHolder extends VisitorSet {
 		return descriptionVisitor;
 	}
 
+	public void disableDateRangeQuery() {
+		dateRangeQueryVisitor.setActive(false);
+	}
+
+	public void enableDateRangeQuery() {
+		dateRangeQueryVisitor.setActive(true);
+	}
+
+	public void disablePhoneNumberQuery() {
+		phoneNumberVisitor.setActive(false);
+	}
+
+	public void enablePhoneNumberQuery() {
+		phoneNumberVisitor.setActive(true);
+	}
+
+	public void disableDescriptionQuery() {
+		descriptionVisitor.setActive(false);
+	}
+
+	public void enableDescriptionQuery() {
+		descriptionVisitor.setActive(true);
+	}
 }

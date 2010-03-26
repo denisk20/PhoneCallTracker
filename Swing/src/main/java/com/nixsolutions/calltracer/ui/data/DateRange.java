@@ -23,4 +23,12 @@ public class DateRange {
 	public Date getEndDate() {
 		return endDate;
 	}
+
+	@Override
+	public String toString() {
+		return "DateRange{" +
+				"startDate=" + startDate +
+				", endDate=" + endDate +
+				'}';
+	}
 }

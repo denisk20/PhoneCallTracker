@@ -9,6 +9,7 @@ import com.nixsolutions.calltracer.ui.handlers.CallDaoHandler;
  */
 public class PhoneNumberVisitor implements QueryVisitor {
 	private String number;
+	private boolean active = true;
 
 	public String getNumber() {
 		return number;
@@ -20,5 +21,14 @@ public class PhoneNumberVisitor implements QueryVisitor {
 
 	public void visit(CallDaoHandler callDaoHandler) {
 		callDaoHandler.setNumberCriteria(number);
+	}
+	@Override
+	public boolean isActive() {
+		return active;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 }

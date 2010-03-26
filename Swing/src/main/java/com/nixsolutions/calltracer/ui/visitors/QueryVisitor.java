@@ -9,4 +9,8 @@ import com.nixsolutions.calltracer.ui.handlers.CallDaoHandler;
  */
 public interface QueryVisitor {
 	void visit(CallDaoHandler callDaoHandler);
+
+	boolean isActive();
+
+	void setActive(boolean active);
 }

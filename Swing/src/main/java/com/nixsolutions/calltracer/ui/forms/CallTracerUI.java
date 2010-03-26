@@ -13,6 +13,7 @@ import com.nixsolutions.calltracer.ui.enablers.ConditionalEnabler;
 import com.nixsolutions.calltracer.ui.enablers.JComponentEnabler;
 import com.nixsolutions.calltracer.ui.executors.CallQueryExecutor;
 import com.nixsolutions.calltracker.model.Call;
+import org.apache.log4j.Logger;
 import org.jdesktop.swingx.JXDatePicker;
 
 import javax.swing.*;
@@ -31,6 +32,7 @@ import java.util.List;
  *         Time: 13:48:36
  */
 public class CallTracerUI {
+	private final Logger log = Logger.getLogger(getClass());
 	private JButton addNumber;
 	private JButton deleteSelected;
 	private JTable dataTable;
@@ -283,8 +285,23 @@ public class CallTracerUI {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					diapasonEnabler.enable();
+
+					if (daysNumberRadioButton.isSelected()) {
+						runNumberOfDaysQueryAndUpdateTable();
+					} else {
+						Date start = fromDate.getDate();
+						Date end = toDate.getDate();
+						if (start != null && end != null) {
+							runDateRangeQueryAndUpdateTable(new DateRange(start, end));
+						} else {
+							log.error("Some date was null. Start=" + start + ", end=" + end);
+						}
+					}
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					diapasonEnabler.disable();
+
+					List<Call> calls = callQueryExecutor.subsractDateRangeAndRunQuery();
+					updateTable(calls);
 				}
 			}
 		});
@@ -292,8 +309,11 @@ public class CallTracerUI {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					phoneNumEnabler.enable();
+					runPhoneQueryAndUpdateTable();
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					phoneNumEnabler.disable();
+					List<Call> calls = callQueryExecutor.substractPhoneAndRunQuery();
+					updateTable(calls);
 				}
 			}
 		});
@@ -301,8 +321,11 @@ public class CallTracerUI {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					descriptionEnabler.enable();
+					runDescriptionQueryAndUpdateTable();
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					descriptionEnabler.disable();
+					List<Call> calls = callQueryExecutor.substractDescriptionAndRunQuery();
+					updateTable(calls);
 				}
 			}
 		});

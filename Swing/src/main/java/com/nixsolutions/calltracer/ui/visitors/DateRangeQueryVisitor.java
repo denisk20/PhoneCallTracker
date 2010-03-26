@@ -10,6 +10,7 @@ import com.nixsolutions.calltracer.ui.handlers.CallDaoHandler;
  */
 public class DateRangeQueryVisitor implements QueryVisitor{
 	private DateRange range;
+	private boolean active = true;
 
 	public DateRange getRange() {
 		return range;
@@ -25,5 +26,15 @@ public class DateRangeQueryVisitor implements QueryVisitor{
 				callDaoHandler.addDateRangeCriteria(range.getStartDate(), range.getEndDate());
 			}
 		}
+	}
+
+	@Override
+	public boolean isActive() {
+		return active;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 }

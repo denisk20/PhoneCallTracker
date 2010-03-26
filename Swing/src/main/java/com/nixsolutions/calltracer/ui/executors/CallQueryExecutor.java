@@ -25,6 +25,7 @@ public class CallQueryExecutor {
 	}
 
 	public List<Call> setPhoneAndQueryCalls(String phoneNumber) {
+		callVisitorsHolder.enablePhoneNumberQuery();
 		if ((phoneNumber != null) && !(phoneNumber.equals(""))) {
 			callVisitorsHolder.setPhone(phoneNumber);
 		} else {
@@ -34,7 +35,8 @@ public class CallQueryExecutor {
 	}
 
 	public List<Call> setDescriptionAndQueryCalls(String description) {
-		if (description != null && ! description.equals("")) {
+		callVisitorsHolder.enableDescriptionQuery();
+		if (description != null && !description.equals("")) {
 			callVisitorsHolder.setDescription(description);
 		} else {
 			callVisitorsHolder.setDescription("");
@@ -43,22 +45,27 @@ public class CallQueryExecutor {
 	}
 
 	public List<Call> setDateRangeAndQueryCalls(DateRange range) {
+		callVisitorsHolder.enableDateRangeQuery();
 		if (validRange(range)) {
+			//todo why don't we exit here?
 			callVisitorsHolder.setDateRangeQuery(range);
 		}
 		return queryCalls();
 	}
 
+	//todo get rid of
 	public void setDateRange(DateRange range) {
 		if (validRange(range)) {
 			callVisitorsHolder.getDateRangeQueryVisitor().setRange(range);
 		}
 	}
 
+	//todo get rid of
 	public void setPhone(String phone) {
 		callVisitorsHolder.getPhoneNumberVisitor().setNumber(phone);
 	}
 
+	//todo get rid of
 	public void setDescription(String description) {
 		if (notEmptyString(description)) {
 			callVisitorsHolder.getDescriptionVisitor().setDescription(description);
@@ -81,34 +88,58 @@ public class CallQueryExecutor {
 
 	public List<Call> queryCalls() {
 		//set criteria for all visitors
-        List<Call> callList = null;
-        try {
-            daoHandler.startTransaction();
-            daoHandler.newQuery();
+		List<Call> callList = null;
+		try {
+			daoHandler.startTransaction();
+			daoHandler.newQuery();
 
-            callVisitorsHolder.acceptHandler(daoHandler);
-            callList = daoHandler.list();
+			callVisitorsHolder.acceptHandler(daoHandler);
+			callList = daoHandler.list();
 
-            daoHandler.commitTransaction();
-        } catch (Exception e) {
-            daoHandler.rollbackTransaction();
-            e.printStackTrace();
-        }
-        return callList;
+			daoHandler.commitTransaction();
+		} catch (Exception e) {
+			daoHandler.rollbackTransaction();
+			e.printStackTrace();
+		}
+		return callList;
 	}
 
-    public void deleteCalls(List<DeletableCall> calls) {
-        try {
-            daoHandler.startTransaction();
-            for (DeletableCall c : calls) {
-                if (c.isDelete()) {
-                    daoHandler.deleteCall(c.getCall());
-                }
-            }
-            daoHandler.commitTransaction();
-        } catch (Exception e) {
-            daoHandler.rollbackTransaction();
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-    }
+	public void deleteCalls(List<DeletableCall> calls) {
+		try {
+			daoHandler.startTransaction();
+			for (DeletableCall c : calls) {
+				if (c.isDelete()) {
+					daoHandler.deleteCall(c.getCall());
+				}
+			}
+			daoHandler.commitTransaction();
+		} catch (Exception e) {
+			daoHandler.rollbackTransaction();
+			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+		}
+	}
+
+	public List<Call> subsractDateRangeAndRunQuery() {
+		callVisitorsHolder.disableDateRangeQuery();
+		List<Call> callList;
+		callList = queryCalls();
+
+		return callList;
+	}
+
+	public List<Call> substractPhoneAndRunQuery() {
+		callVisitorsHolder.disablePhoneNumberQuery();
+		List<Call> callList;
+		callList = queryCalls();
+
+		return callList;
+	}
+
+	public List<Call> substractDescriptionAndRunQuery() {
+		callVisitorsHolder.disableDescriptionQuery();
+		List<Call> callList;
+		callList = queryCalls();
+
+		return callList;
+	}
 }
